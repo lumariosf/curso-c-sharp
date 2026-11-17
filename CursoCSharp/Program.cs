@@ -9,6 +9,7 @@ using CursoCSharp.Exercicios;
 using CursoCSharp.OrientacaoObj; 
 using CursoCSharp.MetodosEFuncoes; 
 using CursoCSharp.Excecoes; 
+using CursoCSharp.API; 
 
 
 namespace CursoCSharp {
@@ -69,6 +70,15 @@ namespace CursoCSharp {
                 
                 {"Extensão e Tratamento de Erro - Exceções", TratamentoDeErro.Executar},
                 {"Extensões Personalizadas - Exceções", Personalisada.Executar},
+            
+                {"Usando API - API", PrimeiroArquivo.Executar},
+                {"Usando Arquivos - API", UsandoArquivos.Executar},
+                {"Usando FileInfo - API", ExemploFileInfo.Executar},
+                {"Diretorios - API", Diretorios.Executar},
+                {"Exemplo DirectoryInfo - API", ExemploDirectoryInfo.Executar},
+                {"Usando Path - API", UsandoPath.Executar},
+                {"Usando DateTime", UsandoDateTime.Executar},
+                {"Usando TimeSpan", ExTimeSpan.Executar},
             });
 
             central.SelecionarEExecutar();

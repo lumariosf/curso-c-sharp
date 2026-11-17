@@ -47,6 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Diretorios.cs" />
+    <Compile Include="API\ExemploDirectoryInfo.cs" />
+    <Compile Include="API\ExemploFileInfo.cs" />
+    <Compile Include="API\PrimeiroArquivo.cs" />
+    <Compile Include="API\TimeSpan.cs" />
+    <Compile Include="API\UsandoArquivos.cs" />
+    <Compile Include="API\UsandoDateTime.cs" />
+    <Compile Include="API\UsandoPath.cs" />
     <Compile Include="CentralDeExercicios.cs" />
     <Compile Include="ClassesEMetodos\AtributosEstaticos.cs" />
     <Compile Include="ClassesEMetodos\Enumeracao.cs" />
