@@ -1,38 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CursoCSharp.TopicosAvancados;
 
 // faça um algoritmo que exiba quantas pessoas possuem mais de 18 anos, O algoritmo deve ler a idade de 10 pessoas
 namespace CursoCSharp.Exercicios {
+    public class PessoaIdade {
+        public string Nome;
+        public int Idade;
 
-    public class Pessoa {
-        string nome;
-        int idade;
-        bool maior_de_idade; 
-
-        public Pessoa(string nome, int idade) {
-            this.nome = nome; this.idade = idade;
-
-            if (idade > 18) this.maior_de_idade = true;
-            else this.maior_de_idade = false; 
+        public PessoaIdade(string nome, int idade) {
+            this.Nome = nome; this.Idade = idade;
         }
-
-        public string getNome() { return nome; }
-
-        public int getIdade() { return idade; }
-
-        public bool getMaior() { return maior_de_idade; }
     }
 
     internal class Ex2 {
-
         public static void Executar() {
-            Pessoa[] pessoas = new Pessoa[10];
-
-            int resposta = 0; 
-            List<Pessoa> pessoas_de_maior = new List<Pessoa>();
+            List<PessoaIdade> pessoas = new List<PessoaIdade>();
 
             for (int i = 0; i < 10; i++)
             {
@@ -42,19 +29,15 @@ namespace CursoCSharp.Exercicios {
                 Console.WriteLine($"Insira a idade da Pessoa {i + 1}");
                 int idade = int.Parse(Console.ReadLine());
 
-                Pessoa p1 = new Pessoa(nome, idade);
-
-                // ver como posso melhorar essa chamada 
-                if (p1.getMaior()) {
-                    resposta++;
-                    pessoas_de_maior.Add(p1); 
-                }
+                PessoaIdade p = new PessoaIdade(nome, idade);
+                pessoas.Add(p);
             }
 
-            Console.WriteLine("Número de pessoas que possuem mais de 18 anos é {0}", resposta);
-            foreach(Pessoa p in pessoas_de_maior)
+            var pessoas_de_maior = pessoas.Where(a => a.Idade > 18).ToList();
+            Console.WriteLine("As {0} pessoas com mais de 18 anos são:", pessoas_de_maior.Count());
+            foreach (var pessoa in pessoas_de_maior)
             {
-                Console.WriteLine($"{p.getNome()}, {p.getIdade()}");
+                Console.WriteLine(pessoa.Nome + " " + pessoa.Idade);
             }
         }
     }

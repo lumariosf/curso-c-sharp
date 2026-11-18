@@ -26,13 +26,14 @@ namespace CursoCSharp.Exercicios {
                 else {
                     salario *= 1.3; 
                 }
-                    funcionarios.Add((nome, salario)); 
+                
+                funcionarios.Add((nome, salario)); 
             }
 
             Console.WriteLine("Os salários reajustados são: ");
             foreach (var funcionario in funcionarios)
             {
-                Console.WriteLine($"{funcionario.Item1} | {funcionario.Item2}");
+                Console.WriteLine($"{funcionario.Item1} com salário {funcionario.Item2}");
             }
         }
 
