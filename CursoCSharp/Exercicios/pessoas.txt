@@ -1,0 +1,5 @@
+﻿Ana;coordenador;1500
+Bruno;gerente;3000
+Carla;funcionario;800
+Diego;coordenador;90
+Elisa;coordenador;2200.50

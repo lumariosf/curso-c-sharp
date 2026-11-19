@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using CursoCSharp.Excecoes;
+using System.IO;
+using CursoCSharp.ClassesEMetodos;
 
 // talvez a melhor opção para o reajuste de salário é ter alguma forma de processar pedido
 namespace CursoCSharp.Exercicios {
@@ -14,12 +16,12 @@ namespace CursoCSharp.Exercicios {
     // metodo para reajuste de salario
     // metodo para impressão do nome e salario ajustado
     public class Pessoa {
-        protected string Nome { get; set;  }
-        protected double Salario { get; set; }
-        protected bool SalarioReajustado { get; set; }
+        public string Nome { get; protected set;  }
+        public double Salario { get; protected set; }
+        public bool SalarioReajustado { get; protected set; }
         
         // para poder printar no ex 9
-        protected string Funcao { get; set;}
+        public string Funcao { get; protected set;}
      
         public Pessoa(string nome, double salario) {
             this.Nome = nome;
@@ -94,7 +96,7 @@ namespace CursoCSharp.Exercicios {
             Console.WriteLine("\n## Salário com reajuste");
             for (int i = 0; i < funcionarios.Count(); i++)
             {
-                Console.Write("[0]. ", i + 1);
+                Console.Write("[{0}]. ", i + 1);
                 funcionarios[i].printReajuste();
             }
         }
@@ -105,7 +107,7 @@ namespace CursoCSharp.Exercicios {
             Console.WriteLine("\n## Exibir atributos das Pessoas");
             for (int i = 0; i < funcionarios.Count(); i++)
             {
-                Console.Write("[0]. ", i + 1);
+                Console.Write("[{0}]. ", i + 1);
                 funcionarios[i].printPessoas();
             }
         }
@@ -113,13 +115,11 @@ namespace CursoCSharp.Exercicios {
         // Ex 7
         // crie uma lista com 10 pessoas, remova as 3 primeiras pessoas e exiba a lista com o nome e o salário delas
         public static void Ex7(List<Pessoa> funcionarios) {
-            funcionarios.RemoveAt(0);
-            funcionarios.RemoveAt(1);
-            funcionarios.RemoveAt(2);
+            funcionarios.RemoveRange(0, 3); 
             Console.WriteLine("\n## Removeu 3 Pessoas");
             for (int i = 0; i < funcionarios.Count(); i++)
             {
-                Console.Write("[0]. ", i + 1);
+                Console.Write("[{0}]. ", i + 1);
                 funcionarios[i].printPessoas();
             }
         }
@@ -131,7 +131,7 @@ namespace CursoCSharp.Exercicios {
             funcionarios.Reverse();
             for (int i = 0; i < funcionarios.Count(); i++)
             {
-                Console.Write("[0]. ", i + 1);
+                Console.Write("[{0}]. ", i + 1);
                 funcionarios[i].printPessoas();
             }
         }
@@ -142,7 +142,7 @@ namespace CursoCSharp.Exercicios {
             Console.WriteLine("\n##Coordenador e Gerente");
             for (int i = 0; i < funcionarios.Count(); i++)
             {
-                Console.Write("[0]. ", i + 1);
+                Console.Write("[{0}]. ", i + 1);
                 funcionarios[i].printPessoas();
                 funcionarios[i].printReajuste();
             }
@@ -164,7 +164,57 @@ namespace CursoCSharp.Exercicios {
                 }
             }
         }
-        
+
+        public static string Salario2000(Pessoa p) {
+            if (p.Salario == 2000)
+            {
+                throw new SalarioException($"ERRO: {p.Nome} ({p.Funcao}) tem salário de 2000, que não é permitido!");
+            }
+
+            return $"{p.Nome} é {p.Funcao} e tem salário de {p.Salario}"; 
+        }
+
+        // Desafio
+        // leia um arquivo TXT conendo uma lista de pessoas e converta as pessoas desse arquivo para um objeto de lista de pessoas
+        // selecione as pessoas que são coordenadores e que tem o salario maior que 100 (LINQ), exiba o nome setor e o salario dessa seleção
+        public static void Desafio() {
+            Console.WriteLine("\n##Desafio ler arquivo");
+            string[] linhas = File.ReadAllLines(@"Exercicios\pessoas.txt");
+            List<Pessoa> temp1 = new List<Pessoa>();
+
+            foreach (string linha in linhas)
+            {
+                string[] partes = linha.Split(';');
+
+                string nome = partes[0].Trim();
+                string funcao = partes[1].Trim();
+                double salario = double.Parse(partes[2].Trim());
+
+                switch (funcao)
+                {
+                    case "gerente":
+                        Pessoa g = new Gerente(nome, salario);
+                        temp1.Add(g);
+                        break;
+                    case "coordenador":
+                        Pessoa c = new Coordenador(nome, salario);
+                        temp1.Add(c);
+                        break;
+                    default:
+                        Pessoa p = new Pessoa(nome, salario);
+                        temp1.Add(p);
+                        break;
+                }
+            }
+
+            var coordenadores = temp1.OfType<Coordenador>().Where(c => c.Salario > 100).ToList();
+            foreach (var c in coordenadores)
+            {
+                Console.WriteLine($"Nome: {c.Nome} | Setor: {c.Funcao} | Salário: {c.Salario}");
+            }
+        }
+
+
 
         public static void Executar() {
             // List<Pessoa> funcionarios = new List<Pessoa>();
@@ -233,7 +283,7 @@ namespace CursoCSharp.Exercicios {
             // Desafio
             // leia um arquivo TXT conendo uma lista de pessoas e converta as pessoas desse arquivo para um objeto de lista de pessoas
             // selecione as pessoas que são coordenadores e que tem o salario maior que 100 (LINQ), exiba o nome setor e o salario dessa seleção
-
+            Desafio(); 
         }
     }
 }

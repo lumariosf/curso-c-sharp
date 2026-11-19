@@ -34,7 +34,7 @@ namespace CursoCSharp.Exercicios {
             foreach (var funcionario in funcionarios)
             {
                 Console.WriteLine($"{funcionario.Item1} com salário {funcionario.Item2}");
-            }
+            }    
         }
 
     }

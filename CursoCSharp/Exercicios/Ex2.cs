@@ -21,8 +21,7 @@ namespace CursoCSharp.Exercicios {
         public static void Executar() {
             List<PessoaIdade> pessoas = new List<PessoaIdade>();
 
-            for (int i = 0; i < 10; i++)
-            {
+            for (int i = 0; i < 10; i++) {
                 Console.WriteLine($"Insira o nome da Pessoa {i + 1}");
                 string nome = Console.ReadLine();
 
